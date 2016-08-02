@@ -8,9 +8,17 @@
 
 namespace AppBundle\Drivers;
 
-
+/*
+ * Interface to define a template for datasource drivers
+ */
 interface DriverInterface
 {
+    /*
+     * All Drivers should connect to datasource
+     */
     public function connect();
+    /*
+     * All Drivers should implement reading from the datasource
+     */
     public function read();
 }

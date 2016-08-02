@@ -8,6 +8,9 @@
 
 namespace AppBundle\Drivers;
 
+/*
+ * Class to define common driver properties and methods
+ */
 
 class Driver implements DriverInterface
 {
@@ -18,10 +21,16 @@ class Driver implements DriverInterface
         $this->connect();
     }
 
+    /*
+     * All Drivers should connect to datasource
+     */
     public function connect()
     {
 
     }
+    /*
+     * All Drivers should implement reading from the datasource
+     */
     public function read()
     {
 

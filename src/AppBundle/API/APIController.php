@@ -10,9 +10,15 @@ namespace AppBundle\API;
 
 use AppBundle\Drivers\MySQLDriver;
 
+/*
+ * Class to mock external api
+ */
 
 class APIController
 {
+    /*
+     * Method to respond to api calls
+     */
     public function call()
     {
         $driver = new MySQLDriver();

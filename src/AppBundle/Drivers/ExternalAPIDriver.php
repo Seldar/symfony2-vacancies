@@ -8,10 +8,14 @@
 
 namespace AppBundle\Drivers;
 use AppBundle\Entity\Vacancy;
-
+/*
+ * Class to implement external api datasource layer
+ */
 class ExternalAPIDriver extends Driver implements DriverInterface
 {
-    public $connection;
+    /*
+     * connect to api url with curl
+     */
 
     public function connect()
     {
@@ -26,11 +30,14 @@ class ExternalAPIDriver extends Driver implements DriverInterface
         curl_setopt($this->connection, CURLOPT_RETURNTRANSFER, 1);
 
     }
+    /*
+     * read data from curl response and return the result as an array of vacancy model
+     */
 
     public function read()
     {
         $data = array();
-        // $output contains the output string
+        // $result contains the output string
         $result = json_decode(curl_exec($this->connection));
 
         // close curl resource to free up system resources

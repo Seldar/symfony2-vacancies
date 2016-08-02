@@ -2,7 +2,7 @@
 namespace AppBundle\Entity;
 
 /**
- * A test vacancy model
+ * A vacancy model
  */
 class Vacancy
 {
@@ -34,6 +34,9 @@ class Vacancy
      */
     private $description;
 
+    /*
+     * When model is initiated, it can be filled with object or array data
+     */
     public function __construct($vacancy = NULL)
     {
         if(is_object($vacancy))
@@ -43,46 +46,73 @@ class Vacancy
             $this->content = $vacancy->content;
             $this->description = $vacancy->description;
         }
+        else if(is_array($vacancy))
+        {
+            $this->id = $vacancy['id'];
+            $this->title = $vacancy['title'];
+            $this->content = $vacancy['content'];
+            $this->description = $vacancy['description'];
+        }
     }
+    /*
+     * method to get id
+     */
     public function getId()
     {
         return $this->id;
     }
-
+    /*
+     * method to get title
+     */
     public function getTitle()
     {
         return $this->title;
     }
-
+    /*
+     * method to set title
+     */
     public function setTitle($title)
     {
         $this->title = $title;
     }
-
+    /*
+     * method to get content
+     */
     public function getContent()
     {
         return $this->content;
     }
-
+    /*
+     * method to set content
+     */
     public function setContent($content)
     {
         $this->content = $content;
     }
-
+    /*
+     * method to get description
+     */
     public function getDescription()
     {
         return $this->description;
     }
-
+    /*
+     * method to set description
+     */
     public function setDescription($description)
     {
         $this->description = $description;
     }
-
+    /*
+     * method to convert model data to array
+     */
     public function toArray()
     {
         return (array("id" => $this->id,"title" => $this->title,"content" => $this->content,"description" => $this->description));
     }
+    /*
+     * method to convert model data to string
+     */
     public function toString()
     {
         return ("id: " . $this->id . ", title: " . $this->title . ", content: " . $this->content . ", description:" . $this->description . "<br>");
