@@ -3,6 +3,7 @@
 namespace AppBundle\Repository;
 
 use AppBundle\Drivers\Driver;
+use AppBundle\Entity\Vacancy;
 
 /*
  * Class to talk with different datasources using its driver as parameter
@@ -32,5 +33,13 @@ class VacancyRepository
     public function read()
     {
         return $this->driver->read();
+    }
+
+    /*
+ * Method to create new vacancies
+ */
+    public function create(Vacancy $vacancy)
+    {
+        return $this->driver->create($vacancy);
     }
 }

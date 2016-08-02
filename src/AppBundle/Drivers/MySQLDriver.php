@@ -41,4 +41,17 @@ class MySQLDriver extends Driver implements DriverInterface
         }
         return $data;
     }
+    /*
+     * create a new row in mysql using vacancy object sent as parameter
+     */
+    public function create(Vacancy $vacancy)
+    {
+        $stmt = $this->connection->prepare("INSERT INTO vacancies SET title = ?, content = ?, description=?");
+        $title = $vacancy->getTitle();
+        $content = $vacancy->getContent();
+        $description = $vacancy->getDescription();
+        $stmt->bind_param("sss",$title,$content,$description);
+        $stmt->execute();
+        $stmt->close();
+    }
 }

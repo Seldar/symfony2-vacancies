@@ -12,6 +12,7 @@ use AppBundle\Drivers\ElasticSearchDriver;
 use AppBundle\Drivers\ExternalAPIDriver;
 use AppBundle\Drivers\MySQLDriver;
 use AppBundle\Drivers\RedisDriver;
+use AppBundle\Entity\Vacancy;
 use AppBundle\Repository\VacancyRepository;
 
 /**
@@ -56,6 +57,14 @@ class VacancyController
         $response .= $this->output($es_result);
 
         return $response;
+    }
+    /**
+     * create vacancy with a number of datasources at the same time
+     */
+    public function create()
+    {
+        $repository = new VacancyRepository(new MySQLDriver());
+        $repository->create(new Vacancy(array("title" => "test" . rand(1,100),"content" => "test" . rand(1,100),"description" => "test" . rand(1,100))));
     }
 
     /*

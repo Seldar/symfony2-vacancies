@@ -34,10 +34,10 @@ class RedisDriver extends Driver implements DriverInterface
     public function read()
     {
         $data = array();
-
-        /*$this->connection->hmset("vacancies:1",array("id" => "1","title" => "test1","content" => "test2","description" => "test3"));
-        $this->connection->hmset("vacancies:2",array("id" => "2","title" => "test4","content" => "test5","description" => "test6"));*/
-
+        /*
+        $this->connection->hmset("vacancies:1",array("id" => "1","title" => "test1","content" => "test2","description" => "test3"));
+        $this->connection->hmset("vacancies:2",array("id" => "2","title" => "test4","content" => "test5","description" => "test6"));
+        */
 
         foreach (new Iterator\Keyspace($this->connection, 'vacancies*') as $key) {
             $row = $this->connection->hgetall($key);

@@ -8,4 +8,5 @@
 require __DIR__ . '/vendor/autoload.php';
 
 $vc = new AppBundle\Controller\VacancyController();
-echo $vc->index();
+//echo $vc->index();
+$vc->create();

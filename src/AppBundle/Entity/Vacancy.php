@@ -41,14 +41,14 @@ class Vacancy
     {
         if(is_object($vacancy))
         {
-            $this->id = $vacancy->id;
+            $this->id = isset($vacancy->id) ? $vacancy->id : null;
             $this->title = $vacancy->title;
             $this->content = $vacancy->content;
             $this->description = $vacancy->description;
         }
         else if(is_array($vacancy))
         {
-            $this->id = $vacancy['id'];
+            $this->id = isset($vacancy['id']) ? $vacancy['id'] : null;
             $this->title = $vacancy['title'];
             $this->content = $vacancy['content'];
             $this->description = $vacancy['description'];
