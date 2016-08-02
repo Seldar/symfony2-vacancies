@@ -13,6 +13,11 @@ class Driver implements DriverInterface
 {
     public $connection;
 
+    public function __construct()
+    {
+        $this->connect();
+    }
+
     public function connect()
     {
 

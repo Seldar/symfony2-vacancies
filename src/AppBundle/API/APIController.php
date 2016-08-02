@@ -13,9 +13,15 @@ use AppBundle\Drivers\MySQLDriver;
 
 class APIController
 {
-    public function index()
+    public function call()
     {
         $driver = new MySQLDriver();
-        return $driver->read();
+        $result = $driver->read();
+        $data = array();
+        foreach($result as $vacancy)
+        {
+            $data[] = $vacancy->toArray();
+        }
+        return json_encode($data);
     }
 }

@@ -8,6 +8,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Drivers\ExternalAPIDriver;
 use AppBundle\Drivers\MySQLDriver;
 use AppBundle\Repository\VacancyRepository;
 
@@ -17,12 +18,37 @@ use AppBundle\Repository\VacancyRepository;
 class VacancyController
 {
     /**
-     * return all vacancies
+     * return all vacancies with a number of datasources
      */
     public function index()
     {
+        //Call MySQL datasource
+        $response = "";
         $driver = new MySQLDriver();
         $repo = new VacancyRepository($driver);
-        return $repo->read();
+        $mysql_result = $repo->read();
+
+        $response .= "mysql result: <br>";
+        $response .= $this->output($mysql_result);
+
+        //Call External API datasource
+        $driver = new ExternalAPIDriver();
+        $repo = new VacancyRepository($driver);
+        $api_result = $repo->read();
+
+        $response .= "api result: <br>";
+        $response .= $this->output($api_result);
+
+        return $response;
+    }
+
+    public function output($result)
+    {
+        $response = "";
+        foreach($result as $vacancy)
+        {
+            $response .= $vacancy->toString();
+        }
+        return $response;
     }
 }

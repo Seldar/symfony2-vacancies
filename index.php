@@ -8,8 +8,14 @@
 require __DIR__ . '/vendor/autoload.php';
 
 $vc = new AppBundle\Controller\VacancyController();
-$result = $vc->index();
-foreach($result as $vacancy)
-{
-    print_r($vacancy);
-}
+echo $vc->index();
+
+$redis = new Predis\Client(array(
+    "scheme" => "tcp",
+    "host" => "localhost",
+    "port" => "6379",
+    "password" => null));
+echo "Connected to Redis";
+$redis->set("foo", "bar");
+$value = $redis->get("foo");
+var_dump($value);

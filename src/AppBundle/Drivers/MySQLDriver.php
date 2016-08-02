@@ -14,11 +14,6 @@ class MySQLDriver extends Driver implements DriverInterface
 {
     public $connection;
 
-    public function __construct()
-    {
-        $this->connect();
-    }
-
     public function connect()
     {
         $this->connection = new \mysqli("localhost", "root", "", "vacancies");

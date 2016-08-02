@@ -79,4 +79,12 @@ class Vacancy
         $this->description = $description;
     }
 
+    public function toArray()
+    {
+        return (array("id" => $this->id,"title" => $this->title,"content" => $this->content,"description" => $this->description));
+    }
+    public function toString()
+    {
+        return ("id: " . $this->id . ", title: " . $this->title . ", content: " . $this->content . ", description:" . $this->description . "<br>");
+    }
 }
