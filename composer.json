@@ -10,5 +10,8 @@
         "predis/predis": "^1.1",
         "elasticsearch/elasticsearch": "dev-master",
         "phpunit/phpunit": "5.4.*"
+    },
+    "require-dev": {
+        "phpunit/dbunit": ">=1.2"
     }
 }

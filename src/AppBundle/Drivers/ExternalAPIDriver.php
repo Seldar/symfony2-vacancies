@@ -19,13 +19,7 @@ class ExternalAPIDriver extends Driver implements DriverInterface
 
     public function connect()
     {
-        if(isset($_SERVER['REQUEST_URI'])) {
-            $urlPart = explode("/", $_SERVER['REQUEST_URI']);
-            array_pop($urlPart);
-            $url = 'http://' . $_SERVER['HTTP_HOST'] . implode("/", $urlPart) . "/api.php";
-        }
-        else
-            $url = "http://localhost/symfony2/symfony2-vacancies/api.php";
+        $url = $this->createUrl("");
         // create curl resource
         $this->connection = curl_init();
 
@@ -46,8 +40,6 @@ class ExternalAPIDriver extends Driver implements DriverInterface
         // $result contains the output string
         $result = json_decode(curl_exec($this->connection));
 
-        // close curl resource to free up system resources
-        curl_close($this->connection);
         if($result){
             // Cycle through results
             foreach ($result as $row){
@@ -56,6 +48,22 @@ class ExternalAPIDriver extends Driver implements DriverInterface
             }
         }
         return $data;
+    }
+
+    /*
+     * create url and add postfix
+     */
+    public function createUrl($postfix)
+    {
+        if(isset($_SERVER['REQUEST_URI'])) {
+            $urlPart = explode("/", $_SERVER['REQUEST_URI']);
+            array_pop($urlPart);
+            $url = 'http://' . $_SERVER['HTTP_HOST'] . implode("/", $urlPart) . "/api.php";
+        }
+        else
+            $url = "http://localhost/symfony2-vacancies/api.php";
+
+        return $url . $postfix;
     }
     /*
      * create a new row in external api using vacancy object sent as parameter
@@ -67,10 +75,7 @@ class ExternalAPIDriver extends Driver implements DriverInterface
             http_build_query($vacancy->toArray()));
 
         // $result contains the output string
-        $result = json_decode(curl_exec($this->connection));
-
-        // close curl resource to free up system resources
-        curl_close($this->connection);
+        $result = curl_exec($this->connection);
 
         return $result;
     }
@@ -87,19 +92,21 @@ class ExternalAPIDriver extends Driver implements DriverInterface
      */
     public function delete($vacancyId)
     {
-        curl_setopt($this->connection, CURLOPT_POST, 1);
-        curl_setopt($this->connection, CURLOPT_POSTFIELDS,
-            "id=" . $vacancyId);
+        // set url
+        curl_setopt($this->connection, CURLOPT_URL, $this->createUrl("?id=" . $vacancyId));
         curl_setopt($this->connection, CURLOPT_CUSTOMREQUEST, 'DELETE');
 
         // $result contains the output string
-        $result = json_decode(curl_exec($this->connection));
-
-        // close curl resource to free up system resources
-        curl_close($this->connection);
+        $result = curl_exec($this->connection);
 
         return $result;
     }
+
+    public function __destruct(){
+        // close curl resource to free up system resources
+        curl_close($this->connection);
+    }
+
     /*
      * Convert to string for comparing purposes
      */

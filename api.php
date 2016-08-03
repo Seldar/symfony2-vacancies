@@ -14,4 +14,4 @@ if($_SERVER['REQUEST_METHOD'] == "GET")
 if($_SERVER['REQUEST_METHOD'] == "POST")
     echo $ac->save($_POST);
 if($_SERVER['REQUEST_METHOD'] == "DELETE")
-    echo $ac->delete($_POST['id']);
+    echo $ac->delete($_GET['id']);

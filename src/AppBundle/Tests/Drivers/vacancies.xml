@@ -1,0 +1,14 @@
+<dataset>
+    <table name="vacancies">
+        <column>id</column>
+        <column>title</column>
+        <column>content</column>
+        <column>description</column>
+        <row>
+            <value>1</value>
+            <value>test1</value>
+            <value>test2</value>
+            <value>test3</value>
+        </row>
+    </table>
+</dataset>

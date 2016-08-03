@@ -34,10 +34,12 @@ class APIController
     public function save($data)
     {
         // We would add logic to save to the API if this would be a real API
+        return "success";
     }
     public function delete($data)
     {
         // We would add logic to delete from the API if this would be a real API
+        return "success";
     }
 
 }
