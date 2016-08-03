@@ -30,23 +30,6 @@ class ElasticSearchDriver extends Driver implements DriverInterface
     {
         $data = array();
 
-        /*$params = [
-            'index' => 'my_index',
-            'type' => 'vacancy',
-            'id' => '1',
-            'body' => ['id' => '1','title' => 'test1','content'=>'test2','description' => 'test3']
-        ];
-        $response = $this->connection->index($params);
-
-        $params = [
-            'index' => 'my_index',
-            'type' => 'vacancy',
-            'id' => '2',
-            'body' => ['id' => '2','title' => 'test4','content'=>'test5','description' => 'test6']
-        ];
-
-        $response = $this->connection->index($params);
-        */
         $params = [
             'index' => 'my_index',
             'type' => 'vacancy',
