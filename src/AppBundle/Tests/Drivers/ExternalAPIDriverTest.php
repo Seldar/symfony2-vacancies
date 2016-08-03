@@ -9,15 +9,20 @@
 namespace AppBundle\Tests\Controller;
 
 use AppBundle\Drivers\ExternalAPIDriver;
+use AppBundle\Entity\Vacancy;
 
 class ExternalAPIDriverTest extends \PHPUnit_Framework_TestCase
 {
-    public function testCalculatePaymentDate()
+    public function testConnection()
     {
         $controller = new ExternalAPIDriver();
-        $result = $controller->read(6);
+        $this->assertEquals("curl", get_resource_type($controller->connection));
+    }
 
-        $this->assertEquals(2, count($result));
-        //$this->assertEquals(array(array()), $result[0]);
+    public function testRead()
+    {
+        $controller = new ExternalAPIDriver();
+        $result = $controller->read();
+        $this->assertContainsOnlyInstancesOf(Vacancy::class,$result);
     }
 }

@@ -19,9 +19,13 @@ class ExternalAPIDriver extends Driver implements DriverInterface
 
     public function connect()
     {
-        $urlPart = explode("/",$_SERVER['REQUEST_URI']);
-        array_pop($urlPart);
-        $url = 'http://' . $_SERVER['HTTP_HOST'] .  implode("/",$urlPart) . "/api.php";
+        if(isset($_SERVER['REQUEST_URI'])) {
+            $urlPart = explode("/", $_SERVER['REQUEST_URI']);
+            array_pop($urlPart);
+            $url = 'http://' . $_SERVER['HTTP_HOST'] . implode("/", $urlPart) . "/api.php";
+        }
+        else
+            $url = "http://localhost/symfony2/symfony2-vacancies/api.php";
         // create curl resource
         $this->connection = curl_init();
 
