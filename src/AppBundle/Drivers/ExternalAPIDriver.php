@@ -19,7 +19,9 @@ class ExternalAPIDriver extends Driver implements DriverInterface
 
     public function connect()
     {
-        $url = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . "api.php";
+        $urlPart = explode("/",$_SERVER['REQUEST_URI']);
+        array_pop($urlPart);
+        $url = 'http://' . $_SERVER['HTTP_HOST'] .  implode("/",$urlPart) . "/api.php";
         // create curl resource
         $this->connection = curl_init();
 
