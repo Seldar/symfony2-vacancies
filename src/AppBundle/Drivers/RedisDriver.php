@@ -47,5 +47,41 @@ class RedisDriver extends Driver implements DriverInterface
 
         return $data;
     }
+    /*
+     * create a new row in redis using vacancy object sent as parameter
+     */
+    public function create(Vacancy $vacancy)
+    {
+        $lastId = 0;
+        foreach (new Iterator\Keyspace($this->connection, 'vacancies*') as $key) {
+            $id = $this->connection->hget($key,"id");
+            if($id > $lastId)
+                $lastId = $id;
+        }
+        $newId = $lastId + 1;
+        return $this->connection->hmset("vacancies:" . $newId,array("id" => $newId,"title" => $vacancy->getTitle(),"content" => $vacancy->getContent(),"description" => $vacancy->getDescription()));
+    }
+    /*
+     * create a new row in redis using vacancy object sent as parameter
+     */
+    public function update(Vacancy $vacancy)
+    {
+        return $this->connection->hmset("vacancies:" . $vacancy->getId(),array("id" => $vacancy->getId(),"title" => $vacancy->getTitle(),"content" => $vacancy->getContent(),"description" => $vacancy->getDescription()));
+    }
+    /*
+     * delete row in redis using vacancy object sent as parameter
+     */
+    public function delete($vacancyId)
+    {
+        return $this->connection->expire("vacancies:" . $vacancyId,0);
+    }
+
+    /*
+     * Convert to string for comparing purposes
+     */
+    function __toString()
+    {
+        return __CLASS__;
+    }
 
 }

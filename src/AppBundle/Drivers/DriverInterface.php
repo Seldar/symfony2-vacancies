@@ -7,6 +7,7 @@
  */
 
 namespace AppBundle\Drivers;
+use AppBundle\Entity\Vacancy;
 
 /*
  * Interface to define a template for datasource drivers
@@ -21,4 +22,16 @@ interface DriverInterface
      * All Drivers should implement reading from the datasource
      */
     public function read();
+    /*
+    * All Drivers should implement creating from the datasource
+    */
+    public function create(Vacancy $vacancy);
+    /*
+    * All Drivers should implement update from the datasource
+    */
+    public function update(Vacancy $vacancy);
+    /*
+    * All Drivers should implement delete from the datasource
+    */
+    public function delete($vacancyId);
 }

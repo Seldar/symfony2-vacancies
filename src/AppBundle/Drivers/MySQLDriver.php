@@ -52,6 +52,45 @@ class MySQLDriver extends Driver implements DriverInterface
         $description = $vacancy->getDescription();
         $stmt->bind_param("sss",$title,$content,$description);
         $stmt->execute();
+        $error = $stmt->error;
         $stmt->close();
+        return $error;
+    }
+
+    /*
+     * update row in mysql using vacancy object sent as parameter
+     */
+    public function update(Vacancy $vacancy)
+    {
+        $stmt = $this->connection->prepare("UPDATE vacancies SET title = ?, content = ?, description=? WHERE id = ?");
+        $title = $vacancy->getTitle();
+        $content = $vacancy->getContent();
+        $description = $vacancy->getDescription();
+        $id = $vacancy->getId();
+        $stmt->bind_param("sssi",$title,$content,$description,$id);
+        $stmt->execute();
+        $error = $stmt->error;
+        $stmt->close();
+        return $error;
+    }
+    /*
+     * delete row in mysql using vacancy object sent as parameter
+     */
+    public function delete($vacancyId)
+    {
+        $stmt = $this->connection->prepare("DELETE FROM vacancies WHERE id = ?");
+        $stmt->bind_param("i",$vacancyId);
+        $stmt->execute();
+        $error = $stmt->error;
+        $stmt->close();
+        return $error;
+    }
+
+    /*
+     * Convert to string for comparing purposes
+     */
+    function __toString()
+    {
+        return __CLASS__;
     }
 }

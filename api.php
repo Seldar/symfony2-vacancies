@@ -9,4 +9,9 @@
 require __DIR__ . '/vendor/autoload.php';
 
 $ac = new AppBundle\API\APIController();
-echo $ac->call();
+if($_SERVER['REQUEST_METHOD'] == "GET")
+    echo $ac->call();
+if($_SERVER['REQUEST_METHOD'] == "POST")
+    echo $ac->save($_POST);
+if($_SERVER['REQUEST_METHOD'] == "DELETE")
+    echo $ac->delete($_POST['id']);

@@ -53,4 +53,54 @@ class ExternalAPIDriver extends Driver implements DriverInterface
         }
         return $data;
     }
+    /*
+     * create a new row in external api using vacancy object sent as parameter
+     */
+    public function create(Vacancy $vacancy)
+    {
+        curl_setopt($this->connection, CURLOPT_POST, 1);
+        curl_setopt($this->connection, CURLOPT_POSTFIELDS,
+            http_build_query($vacancy->toArray()));
+
+        // $result contains the output string
+        $result = json_decode(curl_exec($this->connection));
+
+        // close curl resource to free up system resources
+        curl_close($this->connection);
+
+        return $result;
+    }
+    /*
+     * update a row in external api using vacancy object sent as parameter
+     */
+    public function update(Vacancy $vacancy)
+    {
+        return $this->create($vacancy);
+    }
+
+    /*
+     * delete a row in external api using vacancy object sent as parameter
+     */
+    public function delete($vacancyId)
+    {
+        curl_setopt($this->connection, CURLOPT_POST, 1);
+        curl_setopt($this->connection, CURLOPT_POSTFIELDS,
+            "id=" . $vacancyId);
+        curl_setopt($this->connection, CURLOPT_CUSTOMREQUEST, 'DELETE');
+
+        // $result contains the output string
+        $result = json_decode(curl_exec($this->connection));
+
+        // close curl resource to free up system resources
+        curl_close($this->connection);
+
+        return $result;
+    }
+    /*
+     * Convert to string for comparing purposes
+     */
+    function __toString()
+    {
+        return __CLASS__;
+    }
 }

@@ -34,7 +34,7 @@ class VacancyController
         $response .= $this->output($mysql_result);
 
         //Call External API datasource
-        $repository->changeDriver(new ExternalAPIDriver());
+        $repository->changeReadDriver(new ExternalAPIDriver());
         $api_result = $repository->read();
 
         $response .= "API result: <br>";
@@ -42,7 +42,7 @@ class VacancyController
 
         //Call Redis datasource
 
-        $repository->changeDriver(new RedisDriver());
+        $repository->changeReadDriver(new RedisDriver());
         $redis_result = $repository->read();
 
         $response .= "Redis result: <br>";
@@ -50,7 +50,7 @@ class VacancyController
 
         //Call ElasticSearch datasource
 
-        $repository->changeDriver(new ElasticSearchDriver());
+        $repository->changeReadDriver(new ElasticSearchDriver());
         $es_result = $repository->read();
 
         $response .= "ElasticSearch result: <br>";
@@ -64,9 +64,29 @@ class VacancyController
     public function create()
     {
         $repository = new VacancyRepository(new MySQLDriver());
+        $repository->addMngDriver(array(new MySQLDriver(),new RedisDriver(),new ElasticSearchDriver(),new ExternalAPIDriver()));
         $repository->create(new Vacancy(array("title" => "test" . rand(1,100),"content" => "test" . rand(1,100),"description" => "test" . rand(1,100))));
     }
 
+    /**
+     * update a vacancy with a number of datasources at the same time
+     */
+    public function update()
+    {
+        $repository = new VacancyRepository(new MySQLDriver());
+        $repository->addMngDriver(array(new MySQLDriver(),new RedisDriver(),new ElasticSearchDriver(),new ExternalAPIDriver()));
+        $repository->update(new Vacancy(array("id"=> 1,"title" => "test" . rand(1,100),"content" => "test" . rand(1,100),"description" => "test" . rand(1,100))));
+    }
+
+    /**
+     * update a vacancy with a number of datasources at the same time
+     */
+    public function delete()
+    {
+        $repository = new VacancyRepository(new MySQLDriver());
+        $repository->addMngDriver(array(new MySQLDriver(),new RedisDriver(),new ElasticSearchDriver(),new ExternalAPIDriver()));
+        $repository->delete(3);
+    }
     /*
      * Method to convert array of vacancies to string
      */

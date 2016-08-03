@@ -8,6 +8,8 @@
 
 namespace AppBundle\Drivers;
 
+use AppBundle\Entity\Vacancy;
+
 /*
  * Class to define common driver properties and methods
  */
@@ -32,6 +34,29 @@ class Driver implements DriverInterface
      * All Drivers should implement reading from the datasource
      */
     public function read()
+    {
+        return "Placeholder";
+    }
+
+    /*
+     * All Drivers should implement creating from the datasource
+     */
+    public function create(Vacancy $vacancy)
+    {
+
+    }
+
+    /*
+    * All Drivers should implement update from the datasource
+    */
+    public function update(Vacancy $vacancy)
+    {
+
+    }
+    /*
+    * All Drivers should implement delete from the datasource
+    */
+    public function delete($vacancyId)
     {
 
     }
