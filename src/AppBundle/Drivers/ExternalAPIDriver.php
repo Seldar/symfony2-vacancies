@@ -11,13 +11,17 @@ use AppBundle\Entity\Vacancy;
 /*
  * Class to implement external api datasource layer
  */
-class ExternalAPIDriver extends Driver implements DriverInterface
+class ExternalAPIDriver extends Driver
 {
+    public function __construct()
+    {
+        parent::__construct();
+    }
     /*
      * connect to api url with curl
      */
 
-    public function connect()
+    protected function connect()
     {
         $url = $this->createUrl("");
         // create curl resource
@@ -61,7 +65,7 @@ class ExternalAPIDriver extends Driver implements DriverInterface
             $url = 'http://' . $_SERVER['HTTP_HOST'] . implode("/", $urlPart) . "/api.php";
         }
         else
-            $url = "http://localhost/symfony2-vacancies/api.php";
+            $url = "http://localhost/symfony2/symfony2-vacancies/api.php";
 
         return $url . $postfix;
     }

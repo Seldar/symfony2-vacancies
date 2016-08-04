@@ -20,19 +20,19 @@ class ElasticSearchDriverTest extends \PHPUnit_Framework_TestCase
             'body' => [
                 'settings' => [
                     'number_of_replicas' => 0,
-                    'refresh_interval' => -1
+                    'refresh_interval' => "1s"
                 ]
             ]
         ];
 
-        $controller->connection->indices()->putSettings($params);
+        $controller->getConnection()->indices()->putSettings($params);
         $params = [
             'index' => 'my_index',
             'type' => 'vacancy',
             'id' => 1,
             'body' => ['id' => 1,'title' => "test1",'content'=>"test2",'description' => "test3"]
         ];
-        $controller->connection->index($params);
+        $controller->getConnection()->index($params);
         sleep(1);
     }
     public function tearDown()
@@ -43,14 +43,14 @@ class ElasticSearchDriverTest extends \PHPUnit_Framework_TestCase
             'type' => 'vacancy',
             'id' => 1
         ];
-       $controller->connection->delete($params);
+       $controller->getConnection()->delete($params);
 
     }
 
     public function testConnection()
     {
         $controller = new ElasticSearchDriver();
-        $this->assertEquals("Elasticsearch\Client", get_class($controller->connection));
+        $this->assertEquals("Elasticsearch\Client", get_class($controller->getConnection()));
     }
 
     public function testRead()

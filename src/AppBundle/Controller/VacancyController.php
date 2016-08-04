@@ -85,13 +85,13 @@ class VacancyController
     {
         $repository = new VacancyRepository(new MySQLDriver());
         $repository->addMngDriver(array(new MySQLDriver(),new RedisDriver(),new ElasticSearchDriver(),new ExternalAPIDriver()));
-        $repository->delete(3);
+        $repository->delete(6);
     }
     /*
      * Method to convert array of vacancies to string
      */
 
-    public function output($result)
+    private function output($result)
     {
         $response = "";
         foreach($result as $vacancy)

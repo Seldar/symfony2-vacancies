@@ -13,13 +13,18 @@ use AppBundle\Entity\Vacancy;
 /*
  * Class to implement mysql datasource layer
  */
-class MySQLDriver extends Driver implements DriverInterface
+class MySQLDriver extends Driver
 {
+
+    public function __construct()
+    {
+        parent::__construct();
+    }
 
     /*
      * connect to mysql server
      */
-    public function connect()
+    protected function connect()
     {
         $this->connection = new \mysqli("localhost", "root", "", "vacancies");
     }

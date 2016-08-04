@@ -41,18 +41,33 @@ class Vacancy
     {
         if(is_object($vacancy))
         {
-            $this->id = isset($vacancy->id) ? $vacancy->id : null;
-            $this->title = $vacancy->title;
-            $this->content = $vacancy->content;
-            $this->description = $vacancy->description;
+            $this->initObj($vacancy);
         }
         else if(is_array($vacancy))
         {
-            $this->id = isset($vacancy['id']) ? $vacancy['id'] : null;
-            $this->title = $vacancy['title'];
-            $this->content = $vacancy['content'];
-            $this->description = $vacancy['description'];
+            $this->initArr($vacancy);
         }
+    }
+
+    /*
+     * initilize with an object
+     */
+    private function initObj($vacancy)
+    {
+        $this->id = isset($vacancy->id) ? $vacancy->id : null;
+        $this->title = $vacancy->title;
+        $this->content = $vacancy->content;
+        $this->description = $vacancy->description;
+    }
+    /*
+     * initilize with an array
+     */
+    private function initArr($vacancy)
+    {
+        $this->id = isset($vacancy['id']) ? $vacancy['id'] : null;
+        $this->title = $vacancy['title'];
+        $this->content = $vacancy['content'];
+        $this->description = $vacancy['description'];
     }
     /*
      * method to get id

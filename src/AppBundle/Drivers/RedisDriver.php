@@ -15,12 +15,16 @@ use Predis\Collection\Iterator;
 /*
  * Class to implement redis datasource layer
  */
-class RedisDriver extends Driver implements DriverInterface
+class RedisDriver extends Driver
 {
+    public function __construct()
+    {
+        parent::__construct();
+    }
     /*
      * connect to redis server
      */
-    public function connect()
+    protected function connect()
     {
         $this->connection = new \Predis\Client(array(
             "scheme" => "tcp",

@@ -2,7 +2,7 @@
 
 namespace AppBundle\Repository;
 
-use AppBundle\Drivers\Driver;
+use AppBundle\Drivers\IDriver;
 use AppBundle\Entity\Vacancy;
 
 /*
@@ -11,47 +11,47 @@ use AppBundle\Entity\Vacancy;
 class VacancyRepository
 {
     //Datasource to read from
-    public $readDriver;
+    private $_readDriver;
     //Datasources to write to
-    public $mngDrivers = array();
+    private $_mngDrivers = array();
 
     /*
      * Create an instance using a specific read driver
      */
-    public function __construct(Driver $driver)
+    public function __construct(IDriver $readDriver)
     {
-        $this->readDriver = $driver;
+        $this->_readDriver = $readDriver;
     }
 
     /*
      * Method to change the read driver and also datasource on the fly
      */
-    public function changeReadDriver(Driver $driver)
+    public function changeReadDriver(IDriver $readDriver)
     {
-        $this->readDriver = $driver;
+        $this->_readDriver = $readDriver;
     }
     /*
      * Method to get all vacancies
      */
     public function read()
     {
-        return $this->readDriver->read();
+        return $this->_readDriver->read();
     }
     /*
      * Method to add drivers to synch with
      */
 
-    public function addMngDriver($drivers)
+    public function addMngDriver($mngDrivers)
     {
-        $this->mngDrivers = array_unique(array_merge($drivers, $this->mngDrivers),SORT_REGULAR);
+        $this->_mngDrivers = array_unique(array_merge($mngDrivers, $this->_mngDrivers),SORT_REGULAR);
     }
     /*
      * Method to remove drivers to synch with
      */
 
-    public function removeMngDriver($drivers)
+    public function removeMngDriver($mngDrivers)
     {
-        $this->mngDrivers = array_diff($this->mngDrivers,$drivers);
+        $this->_mngDrivers = array_diff($this->_mngDrivers,$mngDrivers);
     }
 
     /*
@@ -60,7 +60,7 @@ class VacancyRepository
     public function create(Vacancy $vacancy)
     {
         $result = array();
-        foreach($this->mngDrivers as $mngDriver)
+        foreach($this->_mngDrivers as $mngDriver)
         {
             $result[] = $mngDriver->create($vacancy);
         }
@@ -73,7 +73,7 @@ class VacancyRepository
     public function update(Vacancy $vacancy)
     {
         $result = array();
-        foreach($this->mngDrivers as $mngDriver)
+        foreach($this->_mngDrivers as $mngDriver)
         {
             $result[] = $mngDriver->update($vacancy);
         }
@@ -85,7 +85,7 @@ class VacancyRepository
     public function delete($vacancyId)
     {
         $result = array();
-        foreach($this->mngDrivers as $mngDriver)
+        foreach($this->_mngDrivers as $mngDriver)
         {
             $result[] = $mngDriver->delete($vacancyId);
         }

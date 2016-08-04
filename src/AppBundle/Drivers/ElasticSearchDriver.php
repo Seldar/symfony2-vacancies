@@ -13,13 +13,16 @@ use Elasticsearch\ClientBuilder;
 /*
  * Class to implement elasticsearch datasource layer
  */
-class ElasticSearchDriver extends Driver implements DriverInterface
+class ElasticSearchDriver extends Driver
 {
-
+    public function __construct()
+    {
+        parent::__construct();
+    }
     /*
      * connect to elasticsearch server
      */
-    public function connect()
+    protected function connect()
     {
         $this->connection = ClientBuilder::create()->build();
     }

@@ -16,7 +16,7 @@ class ExternalAPIDriverTest extends \PHPUnit_Framework_TestCase
     public function testConnection()
     {
         $controller = new ExternalAPIDriver();
-        $this->assertEquals("curl", get_resource_type($controller->connection));
+        $this->assertEquals("curl", get_resource_type($controller->getConnection()));
     }
 
     public function testRead()
