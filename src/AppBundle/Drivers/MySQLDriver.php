@@ -48,6 +48,7 @@ class MySQLDriver extends Driver
     }
     /*
      * create a new row in mysql using vacancy object sent as parameter
+     * return false on success
      */
     public function create(Vacancy $vacancy)
     {
@@ -64,6 +65,7 @@ class MySQLDriver extends Driver
 
     /*
      * update row in mysql using vacancy object sent as parameter
+     * return false on success
      */
     public function update(Vacancy $vacancy)
     {
@@ -80,6 +82,7 @@ class MySQLDriver extends Driver
     }
     /*
      * delete row in mysql using vacancy object sent as parameter
+     * return false on success
      */
     public function delete($vacancyId)
     {

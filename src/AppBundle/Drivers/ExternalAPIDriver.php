@@ -13,6 +13,12 @@ use AppBundle\Entity\Vacancy;
  */
 class ExternalAPIDriver extends Driver
 {
+    /*
+     * absolute url must be defined for phpunit.
+     * when run with phpunit, server variables are empty, and curl needs a full url
+     */
+    const absoluteUrl = "http://localhost/symfony2/symfony2-vacancies/api.php";
+
     public function __construct()
     {
         parent::__construct();
@@ -55,7 +61,7 @@ class ExternalAPIDriver extends Driver
     }
 
     /*
-     * create url and add postfix
+     * create and return url with postfix
      */
     public function createUrl($postfix)
     {
@@ -65,12 +71,13 @@ class ExternalAPIDriver extends Driver
             $url = 'http://' . $_SERVER['HTTP_HOST'] . implode("/", $urlPart) . "/api.php";
         }
         else
-            $url = "http://localhost/symfony2/symfony2-vacancies/api.php";
+            $url = $this::absoluteUrl;
 
         return $url . $postfix;
     }
     /*
      * create a new row in external api using vacancy object sent as parameter
+     * return false on success
      */
     public function create(Vacancy $vacancy)
     {
@@ -85,6 +92,7 @@ class ExternalAPIDriver extends Driver
     }
     /*
      * update a row in external api using vacancy object sent as parameter
+     * return false on success
      */
     public function update(Vacancy $vacancy)
     {
@@ -93,6 +101,7 @@ class ExternalAPIDriver extends Driver
 
     /*
      * delete a row in external api using vacancy object sent as parameter
+     * return false on success
      */
     public function delete($vacancyId)
     {

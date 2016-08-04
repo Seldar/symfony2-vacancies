@@ -53,6 +53,7 @@ class RedisDriver extends Driver
     }
     /*
      * create a new row in redis using vacancy object sent as parameter
+     * return false on success
      */
     public function create(Vacancy $vacancy)
     {
@@ -68,6 +69,7 @@ class RedisDriver extends Driver
     }
     /*
      * create a new row in redis using vacancy object sent as parameter
+     * return false on success
      */
     public function update(Vacancy $vacancy)
     {
@@ -76,6 +78,7 @@ class RedisDriver extends Driver
     }
     /*
      * delete row in redis using vacancy object sent as parameter
+     * return false on success
      */
     public function delete($vacancyId)
     {

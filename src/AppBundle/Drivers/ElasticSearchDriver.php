@@ -55,6 +55,7 @@ class ElasticSearchDriver extends Driver
 
     /*
      * create a new row in elasticsearch using vacancy object sent as parameter
+     * return false on success
      */
     public function create(Vacancy $vacancy)
     {
@@ -88,6 +89,7 @@ class ElasticSearchDriver extends Driver
 
     /*
      * update a row in elasticsearch using vacancy object sent as parameter
+     * return false on success
      */
     public function update(Vacancy $vacancy)
     {
@@ -104,6 +106,7 @@ class ElasticSearchDriver extends Driver
 
     /*
      * delete a row in elasticsearch using vacancy object sent as parameter
+     * return false on success
      */
     public function delete($vacancyId)
     {

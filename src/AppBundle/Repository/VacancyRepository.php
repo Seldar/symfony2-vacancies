@@ -38,7 +38,8 @@ class VacancyRepository
         return $this->_readDriver->read();
     }
     /*
-     * Method to add drivers to synch with
+     * Method to add managing drivers to synch with
+     * return current managing driver count
      */
 
     public function addMngDriver($mngDrivers)
@@ -48,6 +49,7 @@ class VacancyRepository
     }
     /*
      * Method to remove drivers to synch with
+     * return current managing driver count
      */
 
     public function removeMngDriver($mngDrivers)
@@ -58,6 +60,7 @@ class VacancyRepository
 
     /*
      * Method to create new vacancies
+     * return array of errors if any array of zeroes if none
      */
     public function create(Vacancy $vacancy)
     {
@@ -71,6 +74,7 @@ class VacancyRepository
 
     /*
      * Method to update vacancies
+     * return array of errors if any array of zeroes if none
      */
     public function update(Vacancy $vacancy)
     {
@@ -83,6 +87,7 @@ class VacancyRepository
     }
     /*
      * Method to delete vacancies
+     * return array of errors if any array of zeroes if none
      */
     public function delete($vacancyId)
     {
