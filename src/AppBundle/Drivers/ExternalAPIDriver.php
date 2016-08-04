@@ -81,7 +81,7 @@ class ExternalAPIDriver extends Driver
         // $result contains the output string
         $result = curl_exec($this->connection);
 
-        return $result;
+        return $result!="success";
     }
     /*
      * update a row in external api using vacancy object sent as parameter
@@ -103,7 +103,7 @@ class ExternalAPIDriver extends Driver
         // $result contains the output string
         $result = curl_exec($this->connection);
 
-        return $result;
+        return $result!="success";
     }
 
     public function __destruct(){

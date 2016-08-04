@@ -63,21 +63,24 @@ class RedisDriver extends Driver
                 $lastId = $id;
         }
         $newId = $lastId + 1;
-        return $this->connection->hmset("vacancies:" . $newId,array("id" => $newId,"title" => $vacancy->getTitle(),"content" => $vacancy->getContent(),"description" => $vacancy->getDescription()));
+        $result = $this->connection->hmset("vacancies:" . $newId,array("id" => $newId,"title" => $vacancy->getTitle(),"content" => $vacancy->getContent(),"description" => $vacancy->getDescription()));
+        return (string)$result != "OK";
     }
     /*
      * create a new row in redis using vacancy object sent as parameter
      */
     public function update(Vacancy $vacancy)
     {
-        return $this->connection->hmset("vacancies:" . $vacancy->getId(),array("id" => $vacancy->getId(),"title" => $vacancy->getTitle(),"content" => $vacancy->getContent(),"description" => $vacancy->getDescription()));
+        $result = $this->connection->hmset("vacancies:" . $vacancy->getId(),array("id" => $vacancy->getId(),"title" => $vacancy->getTitle(),"content" => $vacancy->getContent(),"description" => $vacancy->getDescription()));
+        return (string)$result != "OK";
     }
     /*
      * delete row in redis using vacancy object sent as parameter
      */
     public function delete($vacancyId)
     {
-        return $this->connection->expire("vacancies:" . $vacancyId,0);
+        $result =  $this->connection->expire("vacancies:" . $vacancyId,0);
+        return (string)$result != "OK";
     }
 
     /*

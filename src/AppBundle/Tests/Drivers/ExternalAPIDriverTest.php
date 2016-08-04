@@ -30,15 +30,15 @@ class ExternalAPIDriverTest extends \PHPUnit_Framework_TestCase
     {
         $controller = new ExternalAPIDriver();
         $result = $controller->create(new Vacancy(array("title" => "test" . rand(1,100),"content" => "test" . rand(1,100),"description" => "test" . rand(1,100))));
-        $this->assertEquals("success",$result);
+        $this->assertEquals(0,$result);
         $result = $controller->update(new Vacancy(array("id" => 1, "title" => "test" . rand(1,100),"content" => "test" . rand(1,100),"description" => "test" . rand(1,100))));
-        $this->assertEquals("success",$result);
+        $this->assertEquals(0,$result);
     }
     public function testDelete()
     {
         $controller = new ExternalAPIDriver();
         $result = $controller->delete(1);
-        $this->assertEquals("success",$result);
+        $this->assertEquals(0,$result);
     }
 
     public function testToString()

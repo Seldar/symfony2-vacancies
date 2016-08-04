@@ -65,7 +65,7 @@ class VacancyController
     {
         $repository = new VacancyRepository(new MySQLDriver());
         $repository->addMngDriver(array(new MySQLDriver(),new RedisDriver(),new ElasticSearchDriver(),new ExternalAPIDriver()));
-        $repository->create(new Vacancy(array("title" => "test" . rand(1,100),"content" => "test" . rand(1,100),"description" => "test" . rand(1,100))));
+        return $repository->create(new Vacancy(array("title" => "test" . rand(1,100),"content" => "test" . rand(1,100),"description" => "test" . rand(1,100))));
     }
 
     /**
@@ -75,7 +75,7 @@ class VacancyController
     {
         $repository = new VacancyRepository(new MySQLDriver());
         $repository->addMngDriver(array(new MySQLDriver(),new RedisDriver(),new ElasticSearchDriver(),new ExternalAPIDriver()));
-        $repository->update(new Vacancy(array("id"=> 1,"title" => "test" . rand(1,100),"content" => "test" . rand(1,100),"description" => "test" . rand(1,100))));
+        return $repository->update(new Vacancy(array("id"=> 1,"title" => "test" . rand(1,100),"content" => "test" . rand(1,100),"description" => "test" . rand(1,100))));
     }
 
     /**
@@ -85,7 +85,7 @@ class VacancyController
     {
         $repository = new VacancyRepository(new MySQLDriver());
         $repository->addMngDriver(array(new MySQLDriver(),new RedisDriver(),new ElasticSearchDriver(),new ExternalAPIDriver()));
-        $repository->delete(6);
+        return $repository->delete(6);
     }
     /*
      * Method to convert array of vacancies to string

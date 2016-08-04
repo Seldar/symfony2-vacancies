@@ -44,6 +44,7 @@ class VacancyRepository
     public function addMngDriver($mngDrivers)
     {
         $this->_mngDrivers = array_unique(array_merge($mngDrivers, $this->_mngDrivers),SORT_REGULAR);
+        return count($this->_mngDrivers);
     }
     /*
      * Method to remove drivers to synch with
@@ -52,6 +53,7 @@ class VacancyRepository
     public function removeMngDriver($mngDrivers)
     {
         $this->_mngDrivers = array_diff($this->_mngDrivers,$mngDrivers);
+        return count($this->_mngDrivers);
     }
 
     /*

@@ -83,7 +83,7 @@ class ElasticSearchDriver extends Driver
             'body' => ['id' => $newId,'title' => $vacancy->getTitle(),'content'=>$vacancy->getContent(),'description' => $vacancy->getDescription()]
         ];
         $response = $this->connection->index($params);
-        return $response;
+        return !$response['created'];
     }
 
     /*
@@ -99,7 +99,7 @@ class ElasticSearchDriver extends Driver
             'body' => ['id' => $vacancy->getId(),'title' => $vacancy->getTitle(),'content'=>$vacancy->getContent(),'description' => $vacancy->getDescription()]
         ];
         $response = $this->connection->index($params);
-        return $response;
+        return !$response['created'];
     }
 
     /*
@@ -114,7 +114,7 @@ class ElasticSearchDriver extends Driver
             'id' => $vacancyId
         ];
         $response = $this->connection->delete($params);
-        return $response;
+        return !$response['found'];
     }
 
     /*
