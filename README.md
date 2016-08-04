@@ -1,5 +1,5 @@
-Symfony Demo Application
-========================
+Vacancies Application
+=====================
 
 The "Vacancies Application" is an application that provides a repository to handle crud operations using multiple datasources on the vacancy model  
 
