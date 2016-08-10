@@ -59,7 +59,7 @@ class VacancyRepositoryTest extends \PHPUnit_Framework_TestCase
         $repository = new VacancyRepository(new MySQLDriver());
         $repository->addMngDriver(array(new MySQLDriver(),new RedisDriver(),new ElasticSearchDriver(),new ExternalAPIDriver()));
         $result =  $repository->create(new Vacancy(array("title" => "test" . rand(1,100),"content" => "test" . rand(1,100),"description" => "test" . rand(1,100))));
-        $this->assertEquals(array(0,0,0,0),$result);
+        $this->assertEquals(array(1,1,1,1),$result);
     }
 
     public function testUpdate()
@@ -67,7 +67,7 @@ class VacancyRepositoryTest extends \PHPUnit_Framework_TestCase
         $repository = new VacancyRepository(new MySQLDriver());
         $repository->addMngDriver(array(new MySQLDriver(),new RedisDriver(),new ElasticSearchDriver(),new ExternalAPIDriver()));
         $result =  $repository->update(new Vacancy(array("id" => 1,"title" => "test" . rand(1,100),"content" => "test" . rand(1,100),"description" => "test" . rand(1,100))));
-        $this->assertEquals(array(0,0,0,0),$result);
+        $this->assertEquals(array(1,1,1,1),$result);
     }
 
     public function testDelete()
@@ -75,6 +75,6 @@ class VacancyRepositoryTest extends \PHPUnit_Framework_TestCase
         $repository = new VacancyRepository(new MySQLDriver());
         $repository->addMngDriver(array(new MySQLDriver(),new RedisDriver(),new ElasticSearchDriver(),new ExternalAPIDriver()));
         $result =  $repository->delete(1);
-        $this->assertEquals(array(0,0,0,0),$result);
+        $this->assertEquals(array(1,1,1,1),$result);
     }
 }
