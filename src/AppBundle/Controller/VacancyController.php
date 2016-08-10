@@ -4,6 +4,7 @@
  * User: Ulukut
  * Date: 2.08.2016
  * Time: 13:44
+ * @author Volkan Ulukut <arthan@gmail.com>
  */
 
 namespace AppBundle\Controller;
@@ -16,12 +17,15 @@ use AppBundle\Entity\Vacancy;
 use AppBundle\Repository\VacancyRepository;
 
 /**
- * Repository to execute crud operations on vacancies model
+ * Class VacancyController.
+ * Repository to execute crud operations on vacancies model.
+ * @package AppBundle\Controller
  */
 class VacancyController
 {
     /**
-     * return all vacancies with a number of datasources
+     * return all vacancies with a number of datasources.
+     * @return string Output containing all the vacancies from all the datasources
      */
     public function index()
     {
@@ -58,8 +62,10 @@ class VacancyController
 
         return $response;
     }
+
     /**
-     * create vacancy with a number of datasources at the same time
+     * create vacancy with a number of datasources at the same time.
+     * @return array results of each datasource call
      */
     public function create()
     {
@@ -69,7 +75,8 @@ class VacancyController
     }
 
     /**
-     * update a vacancy with a number of datasources at the same time
+     * update a vacancy with a number of datasources at the same time.
+     * @return array results of each datasource call
      */
     public function update()
     {
@@ -80,6 +87,7 @@ class VacancyController
 
     /**
      * update a vacancy with a number of datasources at the same time
+     * @return array results of each datasource call
      */
     public function delete()
     {
@@ -87,10 +95,12 @@ class VacancyController
         $repository->addMngDriver(array(new MySQLDriver(),new RedisDriver(),new ElasticSearchDriver(),new ExternalAPIDriver()));
         return $repository->delete(6);
     }
-    /*
-     * Method to convert array of vacancies to string
-     */
 
+    /**
+     * Method to convert array of vacancies to string.
+     * @param array $result Array of Vacancy Models
+     * @return string String represenatation of vacancy models
+     */
     private function output($result)
     {
         $response = "";
