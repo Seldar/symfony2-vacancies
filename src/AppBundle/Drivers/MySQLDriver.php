@@ -7,29 +7,35 @@
  */
 
 namespace AppBundle\Drivers;
-
 use AppBundle\Entity\Vacancy;
 
-/*
- * Class to implement mysql datasource layer
+
+/**
+ * Class MySQLDriver.
+ * Class to implement mysql datasource layer.
+ * @package AppBundle\Drivers
  */
 class MySQLDriver extends Driver
 {
 
+    /**
+     * MySQLDriver constructor.
+     */
     public function __construct()
     {
         parent::__construct();
     }
 
-    /*
+    /**
      * connect to mysql server
      */
     protected function connect()
     {
         $this->connection = new \mysqli("localhost", "root", "", "vacancies");
     }
-    /*
-     * read data from mysql and return the result as an array of vacancy model
+    /**
+     * read data from mysql and return the result as an array of vacancy model.
+     * @return array An array of vacancy models
      */
     public function read()
     {
@@ -46,9 +52,10 @@ class MySQLDriver extends Driver
         }
         return $data;
     }
-    /*
-     * create a new row in mysql using vacancy object sent as parameter
-     * return true on success
+    /**
+     * create a new row in mysql using vacancy object sent as parameter.
+     * @param Vacancy $vacancy Model to be created
+     * @return bool True on success
      */
     public function create(Vacancy $vacancy)
     {
@@ -63,9 +70,10 @@ class MySQLDriver extends Driver
         return !$error;
     }
 
-    /*
-     * update row in mysql using vacancy object sent as parameter
-     * return true on success
+    /**
+     * update row in mysql using vacancy object sent as parameter.
+     * @param Vacancy $vacancy Model to be updated
+     * @return bool True on success
      */
     public function update(Vacancy $vacancy)
     {
@@ -80,9 +88,10 @@ class MySQLDriver extends Driver
         $stmt->close();
         return !$error;
     }
-    /*
-     * delete row in mysql using vacancy object sent as parameter
-     * return true on success
+    /**
+     * delete row in mysql using vacancy object sent as parameter.
+     * @param int $vacancyId Model id to delete
+     * @return bool True on success
      */
     public function delete($vacancyId)
     {
@@ -94,8 +103,9 @@ class MySQLDriver extends Driver
         return !$error;
     }
 
-    /*
-     * Convert to string for comparing purposes
+    /**
+     * Convert to string for comparing purposes.
+     * @return string The name of the class
      */
     function __toString()
     {

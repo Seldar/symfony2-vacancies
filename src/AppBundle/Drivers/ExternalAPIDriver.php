@@ -8,25 +8,31 @@
 
 namespace AppBundle\Drivers;
 use AppBundle\Entity\Vacancy;
-/*
- * Class to implement external api datasource layer
+
+
+/**
+ * Class ExternalAPIDriver.
+ * Class to implement external api datasource layer.
+ * @package AppBundle\Drivers
  */
 class ExternalAPIDriver extends Driver
 {
-    /*
-     * absolute url must be defined for phpunit.
-     * when run with phpunit, server variables are empty, and curl needs a full url
+    /**
+     * absolute url must be defined for phpunit. when run with phpunit, server variables are empty, and curl needs a full url
      */
     const absoluteUrl = "http://localhost/symfony2/symfony2-vacancies/api.php";
 
+    /**
+     * ExternalAPIDriver constructor.
+     */
     public function __construct()
     {
         parent::__construct();
     }
-    /*
-     * connect to api url with curl
-     */
 
+    /**
+     * connect to api url with curl.
+     */
     protected function connect()
     {
         $url = $this->createUrl("");
@@ -40,10 +46,11 @@ class ExternalAPIDriver extends Driver
         curl_setopt($this->connection, CURLOPT_RETURNTRANSFER, 1);
 
     }
-    /*
-     * read data from curl response and return the result as an array of vacancy model
-     */
 
+    /**
+     * read data from curl response and return the result as an array of vacancy model.
+     * @return array An array of vacancy models
+     */
     public function read()
     {
         $data = array();
@@ -60,8 +67,10 @@ class ExternalAPIDriver extends Driver
         return $data;
     }
 
-    /*
-     * create and return url with postfix
+    /**
+     * create and return url with postfix.
+     * @param string $postfix String to be added at the end of the url
+     * @return string The url that was created.
      */
     public function createUrl($postfix)
     {
@@ -75,9 +84,11 @@ class ExternalAPIDriver extends Driver
 
         return $url . $postfix;
     }
-    /*
-     * create a new row in external api using vacancy object sent as parameter
-     * return true on success
+
+    /**
+     * create a new row in external api using vacancy object sent as parameter.
+     * @param Vacancy $vacancy Model to be created
+     * @return bool true on success
      */
     public function create(Vacancy $vacancy)
     {
@@ -90,18 +101,20 @@ class ExternalAPIDriver extends Driver
 
         return $result=="success";
     }
-    /*
-     * update a row in external api using vacancy object sent as parameter
-     * return true on success
+    /**
+     * update a row in external api using vacancy object sent as parameter.
+     * @param Vacancy $vacancy Model to be updated
+     * @return bool True on success
      */
     public function update(Vacancy $vacancy)
     {
         return $this->create($vacancy);
     }
 
-    /*
-     * delete a row in external api using vacancy object sent as parameter
-     * return true on success
+    /**
+     * delete a row in external api using vacancy object sent as parameter.
+     * @param int $vacancyId Model id to delete
+     * @return bool True on success
      */
     public function delete($vacancyId)
     {
@@ -115,13 +128,17 @@ class ExternalAPIDriver extends Driver
         return $result=="success";
     }
 
+    /**
+     * ExternalAPIDriver destructor.
+     */
     public function __destruct(){
         // close curl resource to free up system resources
         curl_close($this->connection);
     }
 
-    /*
-     * Convert to string for comparing purposes
+    /**
+     * Convert to string for comparing purposes.
+     * @return string The name of the class
      */
     function __toString()
     {

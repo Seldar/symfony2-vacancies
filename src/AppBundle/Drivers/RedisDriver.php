@@ -12,17 +12,23 @@ namespace AppBundle\Drivers;
 use AppBundle\Entity\Vacancy;
 use Predis\Collection\Iterator;
 
-/*
- * Class to implement redis datasource layer
+/**
+ * Class RedisDriver.
+ * Class to implement redis datasource layer.
+ * @package AppBundle\Drivers
  */
 class RedisDriver extends Driver
 {
+    /**
+     * RedisDriver constructor.
+     */
     public function __construct()
     {
         parent::__construct();
     }
-    /*
-     * connect to redis server
+
+    /**
+     * connect to redis server.
      */
     protected function connect()
     {
@@ -32,16 +38,13 @@ class RedisDriver extends Driver
             "port" => "6379",
             "password" => null));
     }
-    /*
-     * read data from redis and return the result as an array of vacancy model
+    /**
+     * read data from redis and return the result as an array of vacancy model.
+     * @return array An array of vacancy models.
      */
     public function read()
     {
         $data = array();
-        /*
-        $this->connection->hmset("vacancies:1",array("id" => "1","title" => "test1","content" => "test2","description" => "test3"));
-        $this->connection->hmset("vacancies:2",array("id" => "2","title" => "test4","content" => "test5","description" => "test6"));
-        */
 
         foreach (new Iterator\Keyspace($this->connection, 'vacancies*') as $key) {
             $row = $this->connection->hgetall($key);
@@ -51,9 +54,11 @@ class RedisDriver extends Driver
 
         return $data;
     }
-    /*
-     * create a new row in redis using vacancy object sent as parameter
-     * return true on success
+
+    /**
+     * create a new row in redis using vacancy object sent as parameter.
+     * @param Vacancy $vacancy Model to be created
+     * @return bool true on success
      */
     public function create(Vacancy $vacancy)
     {
@@ -67,18 +72,21 @@ class RedisDriver extends Driver
         $result = $this->connection->hmset("vacancies:" . $newId,array("id" => $newId,"title" => $vacancy->getTitle(),"content" => $vacancy->getContent(),"description" => $vacancy->getDescription()));
         return (string)$result == "OK";
     }
-    /*
-     * create a new row in redis using vacancy object sent as parameter
-     * return true on success
+    /**
+     * create a new row in redis using vacancy object sent as parameter.
+     * @param Vacancy $vacancy Model to be updated
+     * @return bool True on success
      */
     public function update(Vacancy $vacancy)
     {
         $result = $this->connection->hmset("vacancies:" . $vacancy->getId(),array("id" => $vacancy->getId(),"title" => $vacancy->getTitle(),"content" => $vacancy->getContent(),"description" => $vacancy->getDescription()));
         return (string)$result == "OK";
     }
-    /*
-     * delete row in redis using vacancy object sent as parameter
-     * return true on success
+
+    /**
+     * delete row in redis using vacancy object sent as parameter.
+     * @param int $vacancyId Model id to delete
+     * @return bool True on success
      */
     public function delete($vacancyId)
     {
@@ -86,8 +94,9 @@ class RedisDriver extends Driver
         return (string)$result == "OK";
     }
 
-    /*
-     * Convert to string for comparing purposes
+    /**
+     * Convert to string for comparing purposes.
+     * @return string The name of the class
      */
     function __toString()
     {
