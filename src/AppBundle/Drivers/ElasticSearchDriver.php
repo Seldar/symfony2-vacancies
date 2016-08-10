@@ -55,7 +55,7 @@ class ElasticSearchDriver extends Driver
 
     /*
      * create a new row in elasticsearch using vacancy object sent as parameter
-     * return false on success
+     * return true on success
      */
     public function create(Vacancy $vacancy)
     {
@@ -84,12 +84,12 @@ class ElasticSearchDriver extends Driver
             'body' => ['id' => $newId,'title' => $vacancy->getTitle(),'content'=>$vacancy->getContent(),'description' => $vacancy->getDescription()]
         ];
         $response = $this->connection->index($params);
-        return !$response['created'];
+        return $response['created'];
     }
 
     /*
      * update a row in elasticsearch using vacancy object sent as parameter
-     * return false on success
+     * return true on success
      */
     public function update(Vacancy $vacancy)
     {
@@ -101,12 +101,12 @@ class ElasticSearchDriver extends Driver
             'body' => ['id' => $vacancy->getId(),'title' => $vacancy->getTitle(),'content'=>$vacancy->getContent(),'description' => $vacancy->getDescription()]
         ];
         $response = $this->connection->index($params);
-        return !$response['created'];
+        return $response['created'];
     }
 
     /*
      * delete a row in elasticsearch using vacancy object sent as parameter
-     * return false on success
+     * return true on success
      */
     public function delete($vacancyId)
     {
@@ -117,7 +117,7 @@ class ElasticSearchDriver extends Driver
             'id' => $vacancyId
         ];
         $response = $this->connection->delete($params);
-        return !$response['found'];
+        return $response['found'];
     }
 
     /*

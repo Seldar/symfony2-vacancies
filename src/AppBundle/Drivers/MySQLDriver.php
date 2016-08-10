@@ -48,7 +48,7 @@ class MySQLDriver extends Driver
     }
     /*
      * create a new row in mysql using vacancy object sent as parameter
-     * return false on success
+     * return true on success
      */
     public function create(Vacancy $vacancy)
     {
@@ -60,12 +60,12 @@ class MySQLDriver extends Driver
         $stmt->execute();
         $error = $stmt->error;
         $stmt->close();
-        return $error;
+        return !$error;
     }
 
     /*
      * update row in mysql using vacancy object sent as parameter
-     * return false on success
+     * return true on success
      */
     public function update(Vacancy $vacancy)
     {
@@ -78,11 +78,11 @@ class MySQLDriver extends Driver
         $stmt->execute();
         $error = $stmt->error;
         $stmt->close();
-        return $error;
+        return !$error;
     }
     /*
      * delete row in mysql using vacancy object sent as parameter
-     * return false on success
+     * return true on success
      */
     public function delete($vacancyId)
     {
@@ -91,7 +91,7 @@ class MySQLDriver extends Driver
         $stmt->execute();
         $error = $stmt->error;
         $stmt->close();
-        return $error;
+        return !$error;
     }
 
     /*

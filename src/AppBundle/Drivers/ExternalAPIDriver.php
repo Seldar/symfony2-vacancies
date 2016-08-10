@@ -77,7 +77,7 @@ class ExternalAPIDriver extends Driver
     }
     /*
      * create a new row in external api using vacancy object sent as parameter
-     * return false on success
+     * return true on success
      */
     public function create(Vacancy $vacancy)
     {
@@ -88,11 +88,11 @@ class ExternalAPIDriver extends Driver
         // $result contains the output string
         $result = curl_exec($this->connection);
 
-        return $result!="success";
+        return $result=="success";
     }
     /*
      * update a row in external api using vacancy object sent as parameter
-     * return false on success
+     * return true on success
      */
     public function update(Vacancy $vacancy)
     {
@@ -101,7 +101,7 @@ class ExternalAPIDriver extends Driver
 
     /*
      * delete a row in external api using vacancy object sent as parameter
-     * return false on success
+     * return true on success
      */
     public function delete($vacancyId)
     {
@@ -112,7 +112,7 @@ class ExternalAPIDriver extends Driver
         // $result contains the output string
         $result = curl_exec($this->connection);
 
-        return $result!="success";
+        return $result=="success";
     }
 
     public function __destruct(){
